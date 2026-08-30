@@ -1,10 +1,34 @@
 import pepe.*
 
-describe "Sueldo Pepe" {
-	
-	test "Test 1" {
-		//TODO: Implementame
+describe "TestPepe1"{
+	test "PepeesCadeteBonoFijoPresentismoNormal3Faltas"{
+		pepe.cambiarRol("cadete")
+		pepe.cambiarResultado("fijo")
+		pepe.cambiarPresentismo("normal")
+		pepe.faltasRegistradas(3)
+		assert.equals(20800, pepe.sueldo())
 	}
 
-	
+	test "pepeEsGerenteBonoPorcentajePresentismoNulo"{
+		pepe.cambiarRol("gerente")
+		pepe.cambiarResultado("porcentaje")
+		pepe.cambiarPresentismo("nulo")
+		assert.equals(16500, pepe.sueldo())
+	}
+
+	test "pepeCadeteBonoPorcentajePresentismoNormalSinFaltas"{
+		pepe.cambiarRol("cadete")
+		pepe.cambiarResultado("porcentaje")
+		pepe.cambiarPresentismo("normal")
+		pepe.faltasRegistradas(0)
+		assert.equals(24000, pepe.sueldo())
+	}
+
+	test "pepeCadetePorcentajeNormalFaltaUno"{
+		pepe.cambiarRol("cadete")
+		pepe.cambiarResultado("porcentaje")
+		pepe.cambiarPresentismo("normal")
+		pepe.faltasRegistradas(1)
+		assert.equals(23000, pepe.sueldo())
+	}
 }

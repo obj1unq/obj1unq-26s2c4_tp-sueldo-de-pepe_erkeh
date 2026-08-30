@@ -8,7 +8,7 @@ object pepe {
 
 
     method sueldo() {
-        return self.sueldoNeto() + self.bonoPorResultados() + self.bonoPorPresentismo()
+    return self.sueldoNeto() + self.bonoPorResultados() + self.bonoPorPresentismo()
     }
 
     method empleadoRol() {
@@ -16,23 +16,25 @@ object pepe {
     }
     
     method cambiarRol(nuevoRol) {
-        rolActual = "nuevoRol"
+        rolActual = nuevoRol
     
     }
     method sueldoNeto() {
-        if (self.empleadoRol() == "cadete") {
-            return 20000
-        } else (self.empleadoRol() == "gerente") {
-            return 15000
-        }
+    if (self.empleadoRol() == "cadete") {
+        return 20000
+    } else if (self.empleadoRol() == "gerente") {
+        return 15000
+    } else {
+        return 0
     }
+}
 
     method bonoResultado() {
         return resultadoActual
     }
 
     method cambiarResultado(nuevoResultado) {
-        resultadoActual = "nuevoResultado"
+        resultadoActual = nuevoResultado
     }
 
     method bonoPorResultados() {
@@ -50,7 +52,7 @@ object pepe {
     }
 
     method cambiarPresentismo(nuevoPresentismo) {
-        presentismoActual = "nuevoPresentismo"
+        presentismoActual = nuevoPresentismo
     }
     
     method bonoPorPresentismo() {
