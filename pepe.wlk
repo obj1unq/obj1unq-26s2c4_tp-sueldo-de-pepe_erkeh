@@ -1,105 +1,116 @@
 
 //Hola Mundo
-object pepe {
-    var rolActual = "cadete"
-    var resultadoActual = "fijo"
-    var presentismoActual = "normal"
-    var faltasAcumuladas = 3
+object pepe{
+    var rol = cadete
+    var resultado = porcentaje
+    var presentismo = presentismoNormal
+    var faltasAcumuladas = 0
 
-
-    method sueldo() {
-    return self.sueldoNeto() + self.bonoPorResultados() + self.bonoPorPresentismo()
+    method sueldo(){
+        return rol.sueldoNeto() + self.bonoPorResultado() + self.bonoPorPresentismo()
     }
 
-    method empleadoRol() {
-        return rolActual
+    method cambioDeRol(nuevoRol){
+        rol = nuevoRol
+    }
+
+    method bonoPorResultado(){
+        if(resultado == porcentaje){
+            return resultado.bonoPorPorcentaje(rol.sueldoNeto())
+        } else {
+            return resultado.bonoResultados()
+        }
+    }
+
+    method cambiarTipoResultado(nuevoResultado){
+        resultado = nuevoResultado
     }
     
-    method cambiarRol(nuevoRol) {
-        rolActual = nuevoRol
-    
+    method bonoPorPresentismo() {
+        return presentismo.calcular(self)
     }
-    method sueldoNeto() {
-    if (self.empleadoRol() == "cadete") {
+
+    method cambiarPresentismo(nuevoPresentismo) {
+        presentismo = nuevoPresentismo
+    }
+
+    method faltas(){
+        return faltasAcumuladas
+    }
+
+    method sueldoNetoActual(){
+        return rol.sueldoNeto()
+    }
+
+    method faltasRegistradas(faltasObtenidas){
+        faltasAcumuladas = faltasObtenidas
+    }
+}
+
+object cadete{
+    method sueldoNeto(){
         return 20000
-    } else if (self.empleadoRol() == "gerente") {
+    }
+}
+
+object gerente{
+    method sueldoNeto(){
         return 15000
-    } else {
+    }
+}
+
+object porcentaje{
+    method bonoPorPorcentaje(sueldo){
+        return sueldo * 0.1
+    }
+}
+
+object fijo{
+    method bonoResultados(){
+        return 800
+    }
+}
+
+object nulo{
+    method bonoResultados(){
         return 0
     }
 }
 
-    method bonoResultado() {
-        return resultadoActual
-    }
-
-    method cambiarResultado(nuevoResultado) {
-        resultadoActual = nuevoResultado
-    }
-
-    method bonoPorResultados() {
-        if (self.bonoResultado() == "porcentaje") {
-            return self.sueldoNeto() * 0.10
-        } else if (self.bonoResultado() == "fijo") {
-            return 800
-        } else {
-            return 0
-        }
-    }
-
-    method bonoPresentismo() {
-        return presentismoActual
-    }
-
-    method cambiarPresentismo(nuevoPresentismo) {
-        presentismoActual = nuevoPresentismo
-    }
-    
-    method bonoPorPresentismo() {
-        if (self.bonoPresentismo() == "normal") {
-            return self.presentismoNormal(self.faltas())
-        } else if (self.bonoPresentismo() == "ajuste") {
-            return self.presentismoAjuste(self.faltas())
-        } else if (self.bonoPresentismo() == "demagogico"){
-            return self.presentismoDemagogico()
-        } else {
-            return 0
-        }
-    }
-
-    method faltasRegistradas(numeroDeFaltas) {
-        faltasAcumuladas = numeroDeFaltas
-        return faltasAcumuladas
-    }
-
-    method faltas() {
-        return faltasAcumuladas
-    }
-
-    method presentismoNormal(faltas) {
-        if (faltas == 0) {
+object presentismoNormal{
+    method calcular(empleado){
+        if (empleado.faltas() == 0){
             return 2000
-        } else if (faltas == 1) {
+        } else if (empleado.faltas() == 1) {
             return 1000
         } else {
             return 0
         }
     }
+}
 
-    method presentismoAjuste(faltas) {
-        if (faltas == 0) {
+object presentismoAjuste{
+    method calcular(empleado){
+        if (empleado.faltas() == 0){
             return 100
         } else {
             return 0
         }
     }
+}
 
-    method presentismoDemagogico() {
-        if (self.sueldoNeto() < 18000) {
-            return 500
-        } else {
-            return 300
+object presentismoDemagogico {
+  method calcular(empleado){
+    if (empleado.sueldoNetoActual() < 18000) {
+        return 500
+    } else {
+        return 300
         }
     }
 }
 
+object presentismoNulo{
+    method calcular(empleado){
+        return 0
+    }
+}
