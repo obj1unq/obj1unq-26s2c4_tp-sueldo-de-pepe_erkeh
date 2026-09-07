@@ -1,10 +1,63 @@
 import pepe.*
 
-describe "Sueldo Pepe" {
-	
-	test "Test 1" {
-		//TODO: Implementame
+describe "TestPepe1"{
+	test "PepeesCadeteBonoFijoPresentismoNormal3Faltas"{
+		pepe.cambioDeRol(cadete)
+		pepe.cambiarTipoResultado(fijo)
+		pepe.cambiarPresentismo(presentismoNormal)
+		pepe.faltasRegistradas(3)
+		assert.equals(20800, pepe.sueldo())
 	}
 
-	
+	test "pepeEsGerenteBonoPorcentajePresentismoNulo"{
+		pepe.cambioDeRol(gerente)
+		pepe.cambiarTipoResultado(porcentaje)
+		pepe.cambiarPresentismo(presentismoNulo)
+		assert.equals(16500, pepe.sueldo())
+	}
+
+	test "pepeCadeteBonoPorcentajePresentismoNormalSinFaltas"{
+		pepe.cambioDeRol(cadete)
+		pepe.cambiarTipoResultado(porcentaje)
+		pepe.cambiarPresentismo(presentismoNormal)
+		pepe.faltasRegistradas(0)
+		assert.equals(24000, pepe.sueldo())
+	}
+
+	test "pepeCadetePorcentajeNormalFaltaUno"{
+		pepe.cambioDeRol(cadete)
+		pepe.cambiarTipoResultado(porcentaje)
+		pepe.cambiarPresentismo(presentismoNormal)
+		pepe.faltasRegistradas(1)
+		assert.equals(23000, pepe.sueldo())
+	}
+}
+
+	describe "testPepe2" {
+	test "categoriaBaseDeMedioTiempoEsCade"{
+		medioTiempo.categoriaBase(cadete)
+		assert.equals (10000, medioTiempo.sueldoNeto())
+	}
+
+	test "pepeMedioTiempoCadeteBonoPorcentajeDemagogico"{
+		pepe.cambioDeRol(medioTiempo)
+		medioTiempo.categoriaBase(cadete)
+		pepe.cambiarTipoResultado(porcentaje)
+		pepe.cambiarPresentismo(presentismoDemagogico)
+		assert.equals(11500, pepe.sueldo())
+	}
+
+	test "roqueTieneBonoPorResultadoFijo"{
+		roque.cambiarTipoResultado(fijo)
+		roque.bonoPorResultado()
+		assert.equals(37800, roque.sueldo())
+	}
+
+	test "ernestoCompañeroPepeConBonoPresentismoAjuste"{
+		medioTiempo.categoriaBase(cadete)
+		pepe.cambioDeRol(medioTiempo)
+		ernesto.compañeroDeErnesto(pepe)
+		ernesto.cambiarPresentismo(presentismoAjuste)
+		assert.equals(10100, ernesto.sueldo())
+	}
 }
