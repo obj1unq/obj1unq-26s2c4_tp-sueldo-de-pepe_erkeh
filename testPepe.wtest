@@ -32,3 +32,32 @@ describe "TestPepe1"{
 		assert.equals(23000, pepe.sueldo())
 	}
 }
+
+	describe "testPepe2" {
+	test "categoriaBaseDeMedioTiempoEsCade"{
+		medioTiempo.categoriaBase(cadete)
+		assert.equals (10000, medioTiempo.sueldoNeto())
+	}
+
+	test "pepeMedioTiempoCadeteBonoPorcentajeDemagogico"{
+		pepe.cambioDeRol(medioTiempo)
+		medioTiempo.categoriaBase(cadete)
+		pepe.cambiarTipoResultado(porcentaje)
+		pepe.cambiarPresentismo(presentismoDemagogico)
+		assert.equals(11500, pepe.sueldo())
+	}
+
+	test "roqueTieneBonoPorResultadoFijo"{
+		roque.cambiarTipoResultado(fijo)
+		roque.bonoPorResultado()
+		assert.equals(37800, roque.sueldo())
+	}
+
+	test "ernestoCompañeroPepeConBonoPresentismoAjuste"{
+		medioTiempo.categoriaBase(cadete)
+		pepe.cambioDeRol(medioTiempo)
+		ernesto.compañeroDeErnesto(pepe)
+		ernesto.cambiarPresentismo(presentismoAjuste)
+		assert.equals(10100, ernesto.sueldo())
+	}
+}

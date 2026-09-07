@@ -1,5 +1,7 @@
 
 //Hola Mundo
+
+//EMPLEADOS
 object pepe{
     var rol = cadete
     var resultado = porcentaje
@@ -45,8 +47,96 @@ object pepe{
     method faltasRegistradas(faltasObtenidas){
         faltasAcumuladas = faltasObtenidas
     }
+
+    method neto(){
+        return rol.sueldoNeto()
+    }
 }
 
+object moria{
+    var rol = gerente
+    var resultado = fijo
+
+    method sueldo(){
+        return (rol.sueldoNeto() * 1.3) + self.bonoPorResultado()
+    }
+
+    method cambioDeRol(nuevoRol){
+        rol = nuevoRol
+    }
+
+    method bonoPorResultado(){
+        if(resultado == porcentaje){
+            return resultado.bonoPorPorcentaje(rol.sueldoNeto())
+        } else {
+            return resultado.bonoResultados()
+        }
+    }
+
+    method cambiarTipoResultado(nuevoResultado){
+        resultado = nuevoResultado
+    }
+    method neto(){
+        return rol.sueldoNeto()
+    }
+
+}
+
+object roque {
+    var resultado = porcentaje
+
+    method sueldo(){
+        return self.neto() + self.bonoPorResultado() + 9000
+    }
+
+    method bonoPorResultado(){
+        if(resultado == porcentaje){
+            return resultado.bonoPorPorcentaje(self.neto())
+        } else {
+            return resultado.bonoResultados()
+        }
+    }
+
+    method cambiarTipoResultado(nuevoResultado){
+        resultado = nuevoResultado
+    }
+    method neto(){
+        return 28000
+    }
+
+}
+
+object ernesto{
+    var empleadoCompañero = pepe
+    var presentismo = presentismoNormal
+    var faltasAcumuladas = 0
+
+    method sueldo(){
+        return empleadoCompañero.neto() + self.bonoPorPresentismo()
+    }
+
+    method compañeroDeErnesto(nuevoCompañero){
+        empleadoCompañero = nuevoCompañero
+    }
+
+    method bonoPorPresentismo() {
+        return presentismo.calcular(self)
+    }
+
+    method cambiarPresentismo(nuevoPresentismo) {
+        presentismo = nuevoPresentismo
+    }
+    
+    method faltas(){
+        return faltasAcumuladas
+    }
+
+}
+
+
+
+
+//CATEGORIAS
 object cadete{
     method sueldoNeto(){
         return 20000
@@ -59,6 +149,40 @@ object gerente{
     }
 }
 
+object vendedor{
+    var aumentoPorMuchasVentas = false
+
+
+    method sueldoNeto() {    
+        if (aumentoPorMuchasVentas) {
+            return 16000 * 1.25
+        } else {
+            return 16000
+        }
+    }
+
+    method activarAumentoPorMuchasVentas(){
+        aumentoPorMuchasVentas = true
+    }
+
+    method desactivarAumentoPorMuchasVentas(){
+        aumentoPorMuchasVentas = false
+    }
+
+}
+
+object medioTiempo{
+    var categoria = gerente
+
+    method categoriaBase(nuevaCategoria){
+        categoria  = nuevaCategoria
+    }
+    method sueldoNeto(){
+        return categoria.sueldoNeto() / 2
+    }
+}
+
+//TIPOS DE BONOS POR RESULTADOS
 object porcentaje{
     method bonoPorPorcentaje(sueldo){
         return sueldo * 0.1
@@ -77,6 +201,8 @@ object nulo{
     }
 }
 
+
+//TIPOS DE PRESENTISMOS
 object presentismoNormal{
     method calcular(empleado){
         if (empleado.faltas() == 0){
